@@ -44,49 +44,68 @@ class ApiClient {
     }
     
     async searchCustomers(name) {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/customers?name=${name}`, {
             headers: this.headers
         });
+        if (!response.ok) throw new Error('Search failed');
         return await response.json();
     }
-    
+
     async getCustomer(customerId) {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/customers/${customerId}`, {
             headers: this.headers
         });
+        if (!response.ok) throw new Error('Fetch failed');
         return await response.json();
     }
-    
+
     async getCustomerInfo(customerId) {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/info/customer/${customerId}`, {
             headers: this.headers
         });
+        if (!response.ok) throw new Error('Fetch failed');
         return await response.json();
     }
-    
+
     async viewPersonalInfo(infoId, reason) {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/info/${infoId}/view`, {
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify({ reason })
         });
+        if (!response.ok) throw new Error('View failed');
         return await response.json();
     }
-    
+
     async createDeletionRequest(infoId, reason) {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/deletion-requests`, {
             method: 'POST',
             headers: this.headers,
             body: JSON.stringify({ infoId, reason })
         });
+        if (!response.ok) throw new Error('Request failed');
         return await response.json();
     }
-    
+
     async getMyAccessLogs() {
+        this.updateHeaders();
         const response = await fetch(`${API_BASE_URL}/access-logs/me`, {
             headers: this.headers
         });
+        if (!response.ok) throw new Error('Fetch failed');
         return await response.json();
+    }
+
+    updateHeaders() {
+        this.token = localStorage.getItem('token');
+        if (this.token) {
+            this.headers['Authorization'] = `Bearer ${this.token}`;
+        }
     }
 }
 
