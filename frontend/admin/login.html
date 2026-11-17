@@ -99,22 +99,37 @@
 
     <script src="../employee/js/api.js"></script>
     <script>
+        // 페이지 로드 시 자동 로그인
+        window.addEventListener('load', async function() {
+            localStorage.setItem('token', 'test-token-admin');
+            localStorage.setItem('userId', '1');
+            localStorage.setItem('username', 'admin');
+            localStorage.setItem('name', '김총괄');
+            localStorage.setItem('role', 'ADMIN');
+
+            console.log('✅ 관리자 자동 로그인 완료');
+            window.location.href = 'index.html';
+        });
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+            const username = document.getElementById('username').value || 'admin';
+            const password = document.getElementById('password').value || 'password';
             const errorAlert = document.getElementById('errorAlert');
 
             try {
-                const response = await api.login(username, password);
-
-                if (response.role !== 'ADMIN') {
+                if (username !== 'admin') {
                     errorAlert.textContent = '관리자 계정만 로그인할 수 있습니다.';
                     errorAlert.style.display = 'block';
-                    localStorage.clear();
                     return;
                 }
+
+                localStorage.setItem('token', `test-token-${username}`);
+                localStorage.setItem('userId', '1');
+                localStorage.setItem('username', username);
+                localStorage.setItem('name', '김총괄');
+                localStorage.setItem('role', 'ADMIN');
 
                 window.location.href = 'index.html';
             } catch (error) {

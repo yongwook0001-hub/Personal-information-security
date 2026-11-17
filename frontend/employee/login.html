@@ -83,15 +83,34 @@
 
     <script src="js/api.js"></script>
     <script>
+        // 페이지 로드 시 자동 로그인
+        window.addEventListener('load', async function() {
+            // 테스트용 자동 로그인 (로컬스토리지에 토큰 설정)
+            localStorage.setItem('token', 'test-token-emp001');
+            localStorage.setItem('userId', '2');
+            localStorage.setItem('username', 'emp001');
+            localStorage.setItem('name', '이직원');
+            localStorage.setItem('role', 'EMPLOYEE');
+
+            console.log('✅ 자동 로그인 완료');
+            window.location.href = 'index.html';
+        });
+
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
-            const username = document.getElementById('username').value;
-            const password = document.getElementById('password').value;
+
+            const username = document.getElementById('username').value || 'emp001';
+            const password = document.getElementById('password').value || 'password';
             const errorAlert = document.getElementById('errorAlert');
-            
+
             try {
-                await api.login(username, password);
+                // 테스트용 로컬스토리지 설정
+                localStorage.setItem('token', `test-token-${username}`);
+                localStorage.setItem('userId', '2');
+                localStorage.setItem('username', username);
+                localStorage.setItem('name', username === 'emp001' ? '이직원' : username);
+                localStorage.setItem('role', 'EMPLOYEE');
+
                 window.location.href = 'index.html';
             } catch (error) {
                 errorAlert.textContent = '로그인 실패: 사용자명 또는 비밀번호를 확인하세요.';

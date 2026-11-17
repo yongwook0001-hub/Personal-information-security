@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인정보 처리·열람 관리 시스템</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        .main-container {
+            text-align: center;
+            color: white;
+        }
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .subtitle {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+        }
+        .portal-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .portal-card {
+            background: white;
+            border-radius: 15px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            text-decoration: none;
+            color: inherit;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .portal-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        .portal-card.employee {
+            border-top: 5px solid #003366;
+        }
+        .portal-card.admin {
+            border-top: 5px solid #330066;
+        }
+        .portal-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+        .portal-title {
+            font-size: 1.8rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #333;
+        }
+        .portal-desc {
+            color: #666;
+            font-size: 1rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .portal-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #003366, #0066cc);
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: opacity 0.3s;
+        }
+        .portal-card.admin .portal-link {
+            background: linear-gradient(135deg, #330066, #550099);
+        }
+        .portal-link:hover {
+            opacity: 0.9;
+            color: white;
+            text-decoration: none;
+        }
+        @media (max-width: 768px) {
+            .portal-grid {
+                grid-template-columns: 1fr;
+            }
+            .title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="main-container">
+        <div class="title">🔒 개인정보 처리·열람 관리 시스템</div>
+        <div class="subtitle">금융회사 내부통제용 개인정보 감시 시스템</div>
+
+        <div class="portal-grid">
+            <!-- 직원 포탈 -->
+            <div class="portal-card employee">
+                <div class="portal-icon">👨‍💼</div>
+                <div class="portal-title">직원 포탈</div>
+                <div class="portal-desc">
+                    고객 정보 조회<br>
+                    개인정보 열람<br>
+                    파기 요청<br>
+                    접근 기록 조회
+                </div>
+                <a href="employee/login.html" class="portal-link">직원 로그인 →</a>
+            </div>
+
+            <!-- 관리자 포탈 -->
+            <div class="portal-card admin">
+                <div class="portal-icon">👑</div>
+                <div class="portal-title">관리자 포탈</div>
+                <div class="portal-desc">
+                    접근 기록 모니터링<br>
+                    이상 탐지<br>
+                    파기 요청 승인<br>
+                    감사 & 보고서
+                </div>
+                <a href="admin/login.html" class="portal-link">관리자 로그인 →</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
