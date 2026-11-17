@@ -44,4 +44,30 @@ public class DeletionRequestController {
         List<DeletionRequest> requests = deletionRequestService.getPendingRequests();
         return ResponseEntity.ok(requests);
     }
+
+    @PostMapping("/{requestId}/approve")
+    public ResponseEntity<?> approveDeletion(
+            @PathVariable Integer requestId,
+            @RequestBody Map<String, String> request) {
+        try {
+            String notes = request.get("notes");
+            DeletionRequest result = deletionRequestService.approveDeletion(requestId, notes);
+            return ResponseEntity.ok(result);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
+
+    @PostMapping("/{requestId}/reject")
+    public ResponseEntity<?> rejectDeletion(
+            @PathVariable Integer requestId,
+            @RequestBody Map<String, String> request) {
+        try {
+            String reason = request.get("reason");
+            DeletionRequest result = deletionRequestService.rejectDeletion(requestId, reason);
+            return ResponseEntity.ok(result);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(Map.of("error", e.getMessage()));
+        }
+    }
 }

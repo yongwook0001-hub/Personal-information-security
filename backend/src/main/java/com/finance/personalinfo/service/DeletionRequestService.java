@@ -40,4 +40,22 @@ public class DeletionRequestService {
     public List<DeletionRequest> getPendingRequests() {
         return deletionRequestRepository.findByStatus(DeletionRequest.RequestStatus.PENDING);
     }
+
+    public DeletionRequest approveDeletion(Integer requestId, String notes) {
+        DeletionRequest request = deletionRequestRepository.findById(requestId)
+            .orElseThrow(() -> new IllegalArgumentException("Request not found"));
+
+        request.setStatus(DeletionRequest.RequestStatus.APPROVED);
+
+        return deletionRequestRepository.save(request);
+    }
+
+    public DeletionRequest rejectDeletion(Integer requestId, String reason) {
+        DeletionRequest request = deletionRequestRepository.findById(requestId)
+            .orElseThrow(() -> new IllegalArgumentException("Request not found"));
+
+        request.setStatus(DeletionRequest.RequestStatus.REJECTED);
+
+        return deletionRequestRepository.save(request);
+    }
 }

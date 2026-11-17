@@ -107,6 +107,37 @@ class ApiClient {
             this.headers['Authorization'] = `Bearer ${this.token}`;
         }
     }
+
+    async getPendingDeletions() {
+        this.updateHeaders();
+        const response = await fetch(`${API_BASE_URL}/deletion-requests/pending`, {
+            headers: this.headers
+        });
+        if (!response.ok) throw new Error('Fetch failed');
+        return await response.json();
+    }
+
+    async approveDeletion(requestId, notes) {
+        this.updateHeaders();
+        const response = await fetch(`${API_BASE_URL}/deletion-requests/${requestId}/approve`, {
+            method: 'POST',
+            headers: this.headers,
+            body: JSON.stringify({ notes })
+        });
+        if (!response.ok) throw new Error('Approval failed');
+        return await response.json();
+    }
+
+    async rejectDeletion(requestId, reason) {
+        this.updateHeaders();
+        const response = await fetch(`${API_BASE_URL}/deletion-requests/${requestId}/reject`, {
+            method: 'POST',
+            headers: this.headers,
+            body: JSON.stringify({ reason })
+        });
+        if (!response.ok) throw new Error('Rejection failed');
+        return await response.json();
+    }
 }
 
 const api = new ApiClient();
