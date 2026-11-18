@@ -3,137 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>개인정보 처리·열람 관리 시스템</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <title>개인정보 처리 관제 시스템</title>
+    <link rel="stylesheet" href="shared/css/base.css">
     <style>
-        body {
-            background: linear-gradient(135deg, #003366 0%, #0066cc 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-        .main-container {
-            text-align: center;
-            color: white;
-        }
-        .title {
-            font-size: 3rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-        .subtitle {
-            font-size: 1.3rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-        }
-        .portal-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 2rem;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .portal-card {
-            background: white;
-            border-radius: 15px;
-            padding: 3rem 2rem;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
-            text-decoration: none;
-            color: inherit;
-            transition: transform 0.3s, box-shadow 0.3s;
-            cursor: pointer;
-        }
-        .portal-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
-        }
-        .portal-card.employee {
-            border-top: 5px solid #003366;
-        }
-        .portal-card.admin {
-            border-top: 5px solid #330066;
-        }
-        .portal-icon {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-        }
-        .portal-title {
-            font-size: 1.8rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            color: #333;
-        }
-        .portal-desc {
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 1.5rem;
-            line-height: 1.6;
-        }
-        .portal-link {
-            display: inline-block;
-            background: linear-gradient(135deg, #003366, #0066cc);
-            color: white;
-            padding: 0.8rem 2rem;
-            border-radius: 8px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: opacity 0.3s;
-        }
-        .portal-card.admin .portal-link {
-            background: linear-gradient(135deg, #330066, #550099);
-        }
-        .portal-link:hover {
-            opacity: 0.9;
-            color: white;
-            text-decoration: none;
-        }
-        @media (max-width: 768px) {
-            .portal-grid {
-                grid-template-columns: 1fr;
-            }
-            .title {
-                font-size: 2rem;
-            }
+        /* 포털 선택 화면 전용 */
+        .portal { min-height: 100vh; display: grid; grid-template-rows: auto 1fr auto; background: var(--ink); color: #DCE3EA; }
+        .portal header { padding: 40px 48px 0; }
+        .portal h1 { font-size: clamp(1.8rem, 3.4vw, 2.6rem); font-weight: 700; letter-spacing: -.03em; line-height: 1.25; color: #fff; max-width: 16em; }
+        .portal header p { color: #9AA8B8; margin-top: 12px; max-width: 34em; }
+        .doors { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1px; background: #2A3949; margin: 40px 48px; border-radius: var(--radius-lg); overflow: hidden; align-self: start; }
+        .door { background: #1A2632; padding: 28px; color: inherit; text-decoration: none; display: flex; flex-direction: column; gap: 10px; }
+        .door:hover { background: #213140; }
+        .door b { font-size: 1.25rem; color: #fff; }
+        .door span { color: #9AA8B8; font-size: .92rem; }
+        .door ul { margin: 6px 0 0; padding-left: 18px; color: #B7C3CF; font-size: .88rem; }
+        .door em { font-style: normal; margin-top: auto; padding-top: 10px; color: #9DBBE6; font-weight: 600; }
+        .portal footer { padding: 0 48px 28px; font-size: .82rem; color: #75839A; }
+        @media (max-width: 760px) {
+            .doors { grid-template-columns: 1fr; margin: 24px 16px; }
+            .portal header, .portal footer { padding-left: 16px; padding-right: 16px; }
         }
     </style>
 </head>
 <body>
-    <div class="main-container">
-        <div class="title">🔒 개인정보 처리·열람 관리 시스템</div>
-        <div class="subtitle">금융회사 내부통제용 개인정보 감시 시스템</div>
+    <div class="portal">
+        <header>
+            <h1>고객 개인정보를 누가, 언제, 왜 봤는지 남기고 확인합니다</h1>
+            <p>직원은 사유를 남기고 고객 정보를 처리하고, 총괄책임자는 그 기록을 모니터링해 이상 징후가 보이면 권한을 해제합니다.</p>
+        </header>
 
-        <div class="portal-grid">
-            <!-- 직원 포탈 -->
-            <div class="portal-card employee">
-                <div class="portal-icon">👨‍💼</div>
-                <div class="portal-title">직원 포탈</div>
-                <div class="portal-desc">
-                    고객 정보 조회<br>
-                    개인정보 열람<br>
-                    파기 요청<br>
-                    접근 기록 조회
-                </div>
-                <a href="employee/login.html" class="portal-link">직원 로그인 →</a>
-            </div>
+        <nav class="doors" aria-label="포털 선택">
+            <a class="door" href="employee/login.html">
+                <b>직원 포털</b>
+                <span>개인정보 처리 담당 직원</span>
+                <ul>
+                    <li>고객 검색과 개인정보 열람·다운로드</li>
+                    <li>파기 요청</li>
+                    <li>내 접근 기록 확인</li>
+                </ul>
+                <em>직원으로 로그인</em>
+            </a>
+            <a class="door" href="admin/login.html">
+                <b>관리자 포털</b>
+                <span>관제 총괄 담당자</span>
+                <ul>
+                    <li>관제 현황과 이상 탐지</li>
+                    <li>전체 접근 기록, 고객별 접근 이력</li>
+                    <li>권한 해제, 파기 승인, 감사 기록</li>
+                </ul>
+                <em>관리자로 로그인</em>
+            </a>
+        </nav>
 
-            <!-- 관리자 포탈 -->
-            <div class="portal-card admin">
-                <div class="portal-icon">👑</div>
-                <div class="portal-title">관리자 포탈</div>
-                <div class="portal-desc">
-                    접근 기록 모니터링<br>
-                    이상 탐지<br>
-                    파기 요청 승인<br>
-                    감사 & 보고서
-                </div>
-                <a href="admin/login.html" class="portal-link">관리자 로그인 →</a>
-            </div>
-        </div>
+        <footer id="modeNote"></footer>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+    <script src="shared/js/config.js"></script>
+    <script>
+        // 현재 동작 모드 안내 (config.js 의 USE_MOCK)
+        document.getElementById('modeNote').textContent = window.APP_CONFIG.USE_MOCK
+            ? '현재 목데이터 모드로 동작합니다. 실제 DB 연동은 shared/js/config.js 의 USE_MOCK 을 false 로 바꾸세요.'
+            : `실제 API(${window.APP_CONFIG.API_BASE_URL})에 연결합니다.`;
+    </script>
 </body>
 </html>

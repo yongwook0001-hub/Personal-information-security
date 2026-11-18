@@ -3,51 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>직원 포탈 - 개인정보 관리 시스템</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="css/style.css">
+    <title>직원 포털 | 개인정보 처리 관제 시스템</title>
+    <link rel="stylesheet" href="../shared/css/base.css">
+    <link rel="stylesheet" href="css/employee.css">
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #003366;">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#" onclick="loadPage('dashboard'); return false;" style="font-weight: bold; font-size: 1.3rem;">
-                🔒 개인정보 처리·열람 관리 시스템
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadPage('dashboard'); return false;">📊 대시보드</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadPage('search'); return false;">🔍 고객 검색</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="loadPage('logs'); return false;">📋 내 기록</a>
-                    </li>
-                    <li class="nav-item ms-3">
-                        <span id="userInfo" style="color: white;"></span>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#" onclick="logout(); return false;" style="color: #ff6b6b !important;">🚪 로그아웃</a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<!-- 화면 전체는 js/app.js 가 UI.createApp() 으로 그립니다 -->
+<body class="role-employee">
+    <noscript>이 화면은 JavaScript 가 필요합니다.</noscript>
 
-    <div class="container-fluid mt-4 mb-4">
-        <div id="content"></div>
-    </div>
-
-    <footer style="background-color: #f5f5f5; padding: 2rem; text-align: center; color: #999; margin-top: 4rem;">
-        <p>© 2026 개인정보 처리·열람 관리 시스템 | 직원용 포탈</p>
-    </footer>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
-    <script src="js/api.js"></script>
+    <script src="../shared/js/config.js"></script>
+    <script src="../shared/js/mock-db.js"></script>
+    <script src="../shared/js/mock-server.js"></script>
+    <script src="../shared/js/api.js"></script>
+    <script src="../shared/js/ui.js"></script>
     <script src="js/app.js"></script>
 </body>
 </html>

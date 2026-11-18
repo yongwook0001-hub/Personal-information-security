@@ -1,5 +1,8 @@
 package com.finance.personalinfo.security;
 
+import java.util.List;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -30,11 +33,21 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
                 String username = jwtProvider.getUsernameFromToken(jwt);
                 String role = jwtProvider.getRoleFromToken(jwt);
 
+                // 토큰에 담긴 userId 를 credentials 로 넣어 컨트롤러에서 꺼내 쓸 수 있게 함
+                // (이전에는 null 이라 컨트롤러가 1번(admin)으로 대신 처리하는 문제가 있었음)
+                Integer userId = jwtProvider.getUserIdFromToken(jwt);
+
+                // 역할을 권한으로 등록 → 이후 hasRole("ADMIN") 같은 권한 검사에 사용 가능
+                List<SimpleGrantedAuthority> authorities = new ArrayList<>();
+                if (role != null) {
+                    authorities.add(new SimpleGrantedAuthority("ROLE_" + role));
+                }
+
                 UsernamePasswordAuthenticationToken authentication =
                     new UsernamePasswordAuthenticationToken(
                         username,
-                        null,
-                        new ArrayList<>()
+                        userId,
+                        authorities
                     );
                 authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 

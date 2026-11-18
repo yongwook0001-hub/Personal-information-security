@@ -1,0 +1,56 @@
+/* ============================================================================
+   관리자 포털 전용 스타일 (공통은 shared/css/base.css)
+   ============================================================================ */
+
+/* 이상 탐지: 직원별 한 줄(행) — 왼쪽 신원/점수, 가운데 24시간 띠, 오른쪽 조치 */
+.suspects { display: flex; flex-direction: column; }
+.suspect {
+    display: grid; grid-template-columns: 220px minmax(0, 1fr) auto; gap: 18px 28px;
+    padding: 20px; border-bottom: 1px solid var(--line);
+}
+.suspect:last-child { border-bottom: 0; }
+.suspect--off { background: var(--surface-2); }
+.suspect__who b { font-size: 1.05rem; display: block; }
+.suspect__who small { display: block; margin-bottom: 8px; }
+.suspect__score { display: flex; align-items: baseline; gap: 6px; margin-top: 10px; }
+.suspect__score strong { font-size: 2rem; font-weight: 700; letter-spacing: -.03em; line-height: 1; font-variant-numeric: tabular-nums; }
+.suspect__score span { font-size: .8rem; color: var(--ink-3); }
+.suspect--critical .suspect__score strong { color: var(--critical); }
+.suspect--serious .suspect__score strong { color: var(--serious); }
+.suspect--warning .suspect__score strong { color: var(--warning); }
+.suspect__body { display: flex; flex-direction: column; gap: 14px; min-width: 0; }
+.suspect__actions { display: flex; flex-direction: column; gap: 6px; }
+.suspect__actions .btn { width: 100%; }
+
+.alerts { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.alerts li {
+    display: grid; grid-template-columns: 150px 1fr auto; gap: 12px; align-items: baseline;
+    font-size: .88rem; padding: 7px 10px; border-radius: var(--radius); background: var(--surface-2);
+}
+.alerts b { font-weight: 650; }
+.alerts .muted { font-size: .82rem; }
+.alerts time { font-size: .8rem; color: var(--ink-3); white-space: nowrap; }
+
+/* 정상 직원 요약 줄 */
+.calm { display: flex; flex-wrap: wrap; gap: 8px; padding: 14px 20px; }
+.calm span { font-size: .86rem; padding: 4px 10px; border-radius: 20px; background: var(--good-bg); color: var(--good); font-weight: 600; }
+
+/* 고객 상세 머리 */
+.who {
+    display: flex; flex-wrap: wrap; gap: 8px 28px; align-items: baseline;
+    background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius-lg);
+    padding: 18px 24px;
+}
+.who__name { font-size: 1.3rem; font-weight: 700; letter-spacing: -.02em; }
+.who dl { display: flex; gap: 24px; margin: 0; flex-wrap: wrap; }
+.who dt { font-size: .78rem; color: var(--ink-3); }
+.who dd { margin: 0; font-weight: 600; }
+
+.flags { display: flex; flex-wrap: wrap; gap: 4px; }
+
+@media (max-width: 1100px) {
+    .suspect { grid-template-columns: 1fr; }
+    .suspect__actions { flex-direction: row; flex-wrap: wrap; }
+    .suspect__actions .btn { width: auto; }
+    .alerts li { grid-template-columns: 1fr; gap: 2px; }
+}

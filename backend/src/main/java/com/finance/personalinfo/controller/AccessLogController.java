@@ -27,7 +27,11 @@ public class AccessLogController {
             String username = (String) authentication.getPrincipal();
             Integer userId = (Integer) authentication.getCredentials();
 
-            List<AccessLog> logs = accessLogService.getUserAccessLogs(userId != null ? userId : 1);
+            // 인증 정보에 userId 가 없으면 다른 사람(1번) 기록을 보여주지 않고 401 반환
+            if (userId == null) {
+                return ResponseEntity.status(401).build();
+            }
+            List<AccessLog> logs = accessLogService.getUserAccessLogs(userId);
             return ResponseEntity.ok(logs);
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();

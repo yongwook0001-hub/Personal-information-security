@@ -31,7 +31,11 @@ public class DeletionRequestController {
             }
 
             Integer userId = (Integer) authentication.getCredentials();
-            DeletionRequest deletionRequest = deletionRequestService.createDeletionRequest(infoId, userId != null ? userId : 1, reason);
+            // 인증 정보에 userId 가 없으면 요청자를 1번(admin)으로 대신 기록하지 않고 401 반환
+            if (userId == null) {
+                return ResponseEntity.status(401).body(Map.of("message", "로그인이 필요합니다."));
+            }
+            DeletionRequest deletionRequest = deletionRequestService.createDeletionRequest(infoId, userId, reason);
 
             return ResponseEntity.ok(deletionRequest);
         } catch (IllegalArgumentException e) {

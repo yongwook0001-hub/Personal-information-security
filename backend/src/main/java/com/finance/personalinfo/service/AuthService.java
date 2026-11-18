@@ -25,8 +25,9 @@ public class AuthService {
             throw new IllegalArgumentException("Invalid password");
         }
         
+        // 권한이 해제된 계정은 별도 예외로 구분 → 컨트롤러가 403 ACCOUNT_DISABLED 로 응답
         if (!user.getIsActive()) {
-            throw new IllegalArgumentException("User is inactive");
+            throw new IllegalStateException("접근 권한이 해제된 계정입니다. 총괄책임자에게 문의하세요.");
         }
         
         String token = jwtProvider.generateToken(user.getUserId(), user.getUsername(), user.getRole().toString());
@@ -37,6 +38,8 @@ public class AuthService {
             .username(user.getUsername())
             .name(user.getName())
             .role(user.getRole().toString())
+            .department(user.getDepartment())
+            .position(user.getPosition())
             .build();
     }
 }
